@@ -1,0 +1,65 @@
+# Superfluous files
+.cpcache/
+target/
+.nrepl-port
+pom.xml
+out/
+.m2/
+
+.datomic/
+datomic/
+datomic-*.zip
+
+.clj-kondo/.cache/
+resources/public/media/
+!resources/public/media/.gitkeep
+
+local_jars/
+
+# IDEA related
+## Project-specific
+
+### Prevent JDK from being added
+.idea/**/misc.xml
+.idea/**/watcherTasks.xml
+
+## User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/saveactions_settings.xml
+.idea/codeStyles
+
+## Generated files
+.idea/**/contentModel.xml
+projectFilesBackup/
+
+## Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
+## Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+
+## node / shadow-cljs
+node_modules/
+!node_modules/.gitkeep
+.shadow-cljs/
+resources/public/js/compiled/
+
+## Generated css
+resources/public/css/main.css*
+resources/public/css/main.min.css*
+resources/public/css/.sass-cache
+
+yarn-error.log
+.calva/
+.lsp/

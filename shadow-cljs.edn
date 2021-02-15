@@ -1,0 +1,18 @@
+{:deps true
+
+ ;; set an nrepl port for connection to a REPL.
+ :nrepl {:port 8777}
+ :builds {;; example build config, usage suitable for user apps
+          :app {:target :browser
+                :modules {:base {:init-fn app.interface.core/init}}
+                :output-dir "resources/public/js/compiled"
+                :asset-path "/js/compiled"
+                :dev {:compiler-options {:closure-defines {re-frame.trace.trace-enabled? true}}}
+                :devtools {:http-root "resources/public"
+                           :http-port 8700
+                           :preloads [devtools.preload day8.re-frame-10x.preload]}}
+          :test {:target :node-test
+                 :output-dir "target/test/compiled/"
+                 :output-to "target/test/compiled/test.js"
+                 :ns-regexp "-test$"
+                 :autorun true}}}
