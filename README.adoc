@@ -12,6 +12,8 @@ ifdef::env-github[]
 :stem: latexmath
 endif::[]
 
+== Setup
+
 First, install the dependencies with npm:
 
     npm install
@@ -29,3 +31,7 @@ Start the backend API with this alias:
 Find the backend server at: http://localhost:3000/ping
 
 There are some more aliases, which can typically be used at hobby projects.
+
+== Using Calva
+
+When you are using Calva, you can start frontend and backend in one REPL Session by using the jack-in command, then choosing `deps.edn` and `:watch` as the preferred alias.
