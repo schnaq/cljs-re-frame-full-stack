@@ -4,9 +4,18 @@
             [reagent.dom]))
 
 (defn base []
-  [:<>
-   [:h1 "Hello"]
+  [:div.container
+   [:h1 "Jatumba!"]
    [:p "My first page!"]])
+
+
+
+
+
+
+
+
+
 
 ;; -- Entry Point -------------------------------------------------------------
 
