@@ -17,6 +17,14 @@
   (routes
    (GET "/ping" [] ping)))
 
+
+
+
+
+
+
+;; ----------------------------------------------------------------------------
+
 (defonce current-server (atom nil))
 
 (defn- stop-server []
