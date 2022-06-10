@@ -16,21 +16,27 @@ endif::[]
 
 First, install the dependencies with npm:
 
-    npm install
+    yarn
 
 Then, you can start the frontend service with:
 
-    clj -M:watch
+    clj -M:frontend
 
 You find the application at http://localhost:8700. Open re-frame 10x with `Ctrl+h`.
 
 Start the backend API with this alias:
 
-    clj -M:run-server
+    clj -M:api
 
 Find the backend server at: http://localhost:3000/ping
 
 There are some more aliases, which can typically be used at hobby projects.
+
+=== CSS
+
+To compile sass, install `sassc` and use the following command to watch for changes:
+
+    sass --watch ./resources/public/css/main.scss  ./resources/public/css/main.css
 
 == Using Calva
 
