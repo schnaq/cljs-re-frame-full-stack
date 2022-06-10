@@ -1,4 +1,4 @@
-= Minimal Full Stack Clojure / Clojurescript Project with re-frame
+= Full Stack Clojure / ClojureScript Project with re-frame
 :icons: font
 :icon-set: fa
 :source-highlighter: rouge
@@ -28,9 +28,7 @@ Start the backend API with this alias:
 
     clj -M:api
 
-Find the backend server at: http://localhost:3000/ping
-
-There are some more aliases, which can typically be used at hobby projects.
+Find the backend server's documentation at: http://localhost:3000
 
 === CSS
 
