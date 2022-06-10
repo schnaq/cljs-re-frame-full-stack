@@ -2,16 +2,18 @@
  :deps {clj-http/clj-http {:mvn/version "3.12.3"}
         cljs-ajax/cljs-ajax {:mvn/version "0.8.4"}
         com.taoensso/timbre {:mvn/version "5.2.1"}
-        compojure/compojure {:mvn/version "1.7.0"}
         day8.re-frame/http-fx {:mvn/version "0.2.4"}
         http-kit/http-kit {:mvn/version "2.5.3"}
+        metosin/reitit {:mvn/version "0.5.18"}
         metosin/ring-http-response {:mvn/version "0.9.3"}
+        mount/mount {:mvn/version "0.1.16"}
         org.clojure/clojure {:mvn/version "1.11.1"}
         org.clojure/clojurescript {:mvn/version "1.11.54"}
         org.clojure/data.json {:mvn/version "2.4.0"}
         org.clojure/tools.logging {:mvn/version "1.2.4"}
         re-frame/re-frame {:mvn/version "1.2.0"}
         reagent/reagent {:mvn/version "1.1.1"}
+        ring-cors/ring-cors {:mvn/version "0.1.13"}
         ring-middleware-format/ring-middleware-format {:mvn/version "0.7.5"}
         ring/ring {:mvn/version "1.9.5"}
         ring/ring-defaults {:mvn/version "0.3.3"}
@@ -33,6 +35,7 @@
 
            :frontend
            {:main-opts ["-m" "shadow.cljs.devtools.cli"
-                        "watch" ":app"]}
+                        "watch" ":app"]
+            :extra-deps {binaryage/devtools {:mvn/version "1.0.6"}}}
 
            :api {:main-opts ["-m" "app.api"]}}}

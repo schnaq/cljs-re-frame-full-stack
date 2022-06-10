@@ -1,22 +1,40 @@
 (ns app.api
-  (:require [taoensso.timbre :as log]
-            [compojure.core :refer [GET routes]]
+  (:require [app.config :as config]
+            [expound.alpha :as expound]
+            [mount.core :as mount :refer [defstate]]
+            [muuntaja.core :as m]
             [org.httpkit.server :as server]
-            [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
-            [ring.middleware.format :refer [wrap-restful-format]]
-            [ring.util.http-response :refer [ok]])
+            [reitit.coercion.spec]
+            [reitit.dev.pretty :as pretty]
+            [reitit.ring :as ring]
+            [reitit.ring.coercion :as coercion]
+            [reitit.ring.middleware.multipart :as multipart]
+            [reitit.ring.middleware.muuntaja :as muuntaja]
+            [reitit.ring.middleware.parameters :as parameters]
+            [reitit.ring.spec :as rrs]
+            [reitit.spec :as rs]
+            [reitit.swagger :as swagger]
+            [reitit.swagger-ui :as swagger-ui]
+            [ring.middleware.cors :refer [wrap-cors]]
+            [ring.util.http-response :refer [ok]]
+            [taoensso.timbre :as log])
   (:gen-class))
 
-(defn- ping
+(defn- wizard
   "Route to ping the API. Used in our monitoring system."
   [_]
-  (ok {:text "🧙‍♂️"}))
+  (ok {:wizard "🧙‍♂️"}))
 
-(def ^:private app-routes
-  "Common routes for all modes."
-  (routes
-   (GET "/ping" [] ping)))
+(defn- reveal-information [request]
+  (ok {:headers (:headers request)
+       :identity (:identity request)}))
 
+(def ^:private api-routes
+  [["/debug" {:swagger {:tags ["debug"]}}
+    ["" {:name :api/debug
+         :get {:handler reveal-information}
+         :post {:handler reveal-information}}]]
+   ["/wizard" {:get wizard}]])
 
 
 
@@ -25,28 +43,64 @@
 
 ;; ----------------------------------------------------------------------------
 
-(defonce current-server (atom nil))
+(defn- router
+  "Create a router with all routes. Configures swagger for documentation."
+  []
+  (ring/router
+   [api-routes
+    ["/swagger.json"
+     {:get {:no-doc true
+            :swagger {:info {:title "API"
+                             :basePath "/"
+                             :version "1.0.0"}}
+            :handler (swagger/create-swagger-handler)}}]]
+   {:exception pretty/exception
+    :validate rrs/validate
+    ::rs/explain expound/expound-str
+    :data {:coercion reitit.coercion.spec/coercion
+           :muuntaja m/instance
+           :middleware [swagger/swagger-feature
+                        parameters/parameters-middleware ;; query-params & form-params
+                        muuntaja/format-middleware
+                        coercion/coerce-response-middleware ;; coercing response bodies
+                        coercion/coerce-request-middleware ;; coercing request parameters
+                        multipart/multipart-middleware]}}))
 
-(defn- stop-server []
-  (when-not (nil? @current-server)
-    ;; graceful shutdown: wait 100ms for existing requests to be finished
-    ;; :timeout is optional, when no timeout, stop immediately
-    (@current-server :timeout 100)
-    (reset! current-server nil)))
+(defn app
+  []
+  (ring/ring-handler
+   (router)
+   (ring/routes
+    (swagger-ui/create-swagger-ui-handler
+     {:path "/"
+      :config {:validatorUrl nil
+               :operationsSorter "alpha"}})
+    (ring/redirect-trailing-slash-handler {:method :strip})
+    (ring/create-default-handler))))
+
+(def allowed-http-verbs
+  #{:get :put :post :delete :options})
+
+(defstate api
+  :start
+  (let [origins #".*"]
+    (log/info (format "Allowed Origins: %s" origins))
+    (log/info (format "Find the backend with swagger documentation at %s" config/api-location))
+    (server/run-server
+     (wrap-cors (app)
+                :access-control-allow-origin origins
+                :access-control-allow-methods allowed-http-verbs)
+     {:port config/api-port}))
+  :stop (when api (api :timeout 1000)))
 
 (defn -main
   "This is our main entry point for the REST API Server."
   [& _args]
-  (reset! current-server
-          (server/run-server
-           (-> #'app-routes
-               (wrap-restful-format :formats [:transit-json :transit-msgpack :json-kw :edn :msgpack-kw :yaml-kw :yaml-in-html])
-               (wrap-defaults api-defaults))
-           {:port 3000}))
-  (log/info "Server started: http://localhost:3000/ping"))
+  (log/info (mount/start)))
 
 (comment
   "Start the server from here"
   (-main)
-  (stop-server)
+  (mount/start)
+  (mount/stop)
   :end)
