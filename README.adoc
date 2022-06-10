@@ -22,7 +22,7 @@ Then, you can start the frontend service with:
 
     clj -M:frontend
 
-You find the application at http://localhost:8700. Open re-frame 10x with `Ctrl+h`.
+You find the application at http://localhost:8700.
 
 Start the backend API with this alias:
 
@@ -40,4 +40,4 @@ To compile sass, install `sassc` and use the following command to watch for chan
 
 == Using Calva
 
-When you are using Calva, you can start frontend and backend in one REPL Session by using the jack-in command, then choosing `deps.edn` and `:watch` as the preferred alias.
+When you are using Calva, you can start frontend and backend in one REPL Session by using the jack-in command, then choosing `deps.edn` and `:frontend` as the preferred alias.

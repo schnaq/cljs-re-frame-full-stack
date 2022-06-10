@@ -1,9 +1,10 @@
 (ns app.interface.core
-  (:require [day8.re-frame.http-fx]
+  (:require ["react-dom/client" :refer [createRoot]]
+            [day8.re-frame.http-fx]
             [goog.dom :as gdom]
-            [reagent.dom]))
+            [reagent.core :as r]))
 
-(defn base []
+(defn main []
   [:div.container
    [:h1 "Jatumba!"]
    [:p "My first page!"]])
@@ -19,16 +20,15 @@
 
 ;; -- Entry Point -------------------------------------------------------------
 
-(defn render
-  []
-  (reagent.dom/render [base]
-                      (gdom/getElement "app")))
-
-(defn ^:dev/after-load clear-cache-and-render!
-  []
-  (render))
+(defonce root (createRoot (gdom/getElement "app")))
 
 (defn init
-  "Entrypoint into the application."
   []
-  (render))
+  (.render root (r/as-element [main])))
+
+(defn- ^:dev/after-load re-render
+  "The `:dev/after-load` metadata causes this function to be called after
+  shadow-cljs hot-reloads code. This function is called implicitly by its
+  annotation."
+  []
+  (init))
