@@ -30,12 +30,9 @@ Start the backend API with this alias:
 
 Find the backend server's documentation at: http://localhost:3000
 
-=== CSS
-
-To compile sass, install `sassc` and use the following command to watch for changes:
-
-    sass --watch ./resources/public/css/main.scss  ./resources/public/css/main.css
 
 == Using Calva
 
 When you are using Calva, you can start frontend and backend in one REPL Session by using the jack-in command, then choosing `deps.edn` and `:frontend` as the preferred alias.
+
+To start the backend, load `api.clj` into your repl and call the main-function.
