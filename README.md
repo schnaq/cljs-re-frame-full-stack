@@ -33,7 +33,7 @@ Better quality video is available at [YouTube](https://youtu.be/qFh9c_fNpjM)
 ### Shortcut Advices
 
 It is especially great if you have a REPL to be able to interact with the code directly from the editor. There are a few keyboard shortcuts for this, which you can
-configure them as you like. These are my (Christian) recommendations:
+configure them as you like. These are my (@n2o) recommendations:
 
 - `C-c C-c` (Control C, Control C): Evaluates S-Expression (thus sends the
   current code from the cursor to the REPL).
