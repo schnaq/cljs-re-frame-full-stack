@@ -20,7 +20,7 @@ Find the backend server's documentation at: http://localhost:3000
 
 ## Using Calva
 
-When you are using Calva, you can start frontend and backend in one REPL Session by using the jack-in command, then choosing `deps.edn + shadow-cljs` and `:frontend` as the preferred alias.
+When you are using Calva, you can start frontend and backend in one REPL Session by using the jack-in command, then choosing `deps.edn + shadow-cljs` and `:frontend` as the preferred alias. In the last dialog, choose `:app`.
 
 To start the backend, load `api.clj` into your repl and call the main-function.
 
