@@ -26,9 +26,9 @@ To start the backend, load `api.clj` into your repl and call the main-function.
 
 ### Demo (check also Shortcuts below)
 
-video::resources/demo.mp4[Screencast showing how to connect to the REPL]
+https://user-images.githubusercontent.com/1507474/174399574-2fa629a3-2260-4f87-92cb-7ce6de8d8a79.mp4
 
-Better quality video is available at https://youtu.be/qFh9c_fNpjM[YouTube]
+Better quality video is available at [YouTube](https://youtu.be/qFh9c_fNpjM)
 
 ### Shortcut Advices
 
