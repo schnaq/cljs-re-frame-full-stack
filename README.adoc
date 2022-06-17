@@ -37,6 +37,12 @@ When you are using Calva, you can start frontend and backend in one REPL Session
 
 To start the backend, load `api.clj` into your repl and call the main-function.
 
+=== Demo (check also Shortcuts below)
+
+video::resources/demo.mp4[Screencast showing how to connect to the REPL]
+
+Better quality video is available at https://youtu.be/qFh9c_fNpjM[YouTube]
+
 === Shortcut Advices
 
 It is especially great if you have a REPL to be able to interact with the code directly from the editor. There are a few keyboard shortcuts for this, which you can
